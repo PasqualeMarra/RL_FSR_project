@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<launch>
+
+
+  <arg name="x" default="0.0"/>  <!--<arg name="x" default="-6.0"/> -->  <!--frame Gazebo: NOU-->
+  <arg name="y" default="0.0"/>   <!--<arg name="y" default="8.0"/>  -->
+  <arg name="z" default="0.5"/>  <!--<arg name="z" default="0.25"/> -->
+  <arg name="R" default="0.0"/>   <!--<arg name="Y" default="0.0"/>  -->
+  <arg name="P" default="0.0"/>   <!--<arg name="Y" default="0.0"/>  -->
+  <arg name="Y" default="0.0"/>   <!--<arg name="Y" default="0.0"/>  -->
+
+  <!--<arg name="world_name" default="empty"/>-->
+  <arg name="enable_logging" default="false" />
+  <arg name="enable_ground_truth" default="true" />
+
+
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="paused" default="true"/>
+
+  <!-- The following line causes gzmsg and gzerr messages to be printed to the console
+      (even when Gazebo is started through roslaunch) -->
+  <arg name="verbose" default="true"/>
+  <arg name="rvizconfig" default="$(find mav_description)/launch/humm.rviz" />
+  <!--<arg name="rvizconfig" default="$(find quad_control)/drone.rviz" />-->
+
+
+
+  <include file="$(find mav_description)/launch/spawn_hummingbird.launch">
+    <!--<arg name="model" value="$(find mav_description)/urdf/hummingbird/sensorized_hummingbird_base.xacro" />-->
+    <arg name="model" value="$(find mav_description)/urdf/sens_humm/sensorized_hummingbird.xacro" />
+    <arg name="enable_logging" value="$(arg enable_logging)" />
+    <arg name="enable_ground_truth" value="$(arg enable_ground_truth)" />
+
+    <arg name="x" value="$(arg x)"/>  <!--<arg name="x" default="-6.0"/> -->  <!--frame Gazebo: NOU-->
+    <arg name="y" value="$(arg y)"/>   <!--<arg name="y" default="8.0"/>  -->
+    <arg name="z" value="$(arg z)"/>  <!--<arg name="z" default="0.25"/> -->
+    <arg name="R" value="$(arg R)"/>   <!--<arg name="Y" default="0.0"/>  -->
+    <arg name="P" value="$(arg P)"/>   <!--<arg name="Y" default="0.0"/>  -->
+    <arg name="Y" value="$(arg Y)"/>   <!--<arg name="Y" default="0.0"/>  -->
+  </include>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="drone_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node pkg="tf" type="static_transform_publisher" name="bodyNED" args="0 0 0 1.57079 0 3.14159  base_linkNED base_link 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="maptf" args="0 0 0 0 0 0  world /map  100"/>
+  <node pkg="tf" type="static_transform_publisher" name="wNED" args="0 0 0 1.57079 0 3.14159  world worldNED  100"/>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)"  />
+	
+</launch>

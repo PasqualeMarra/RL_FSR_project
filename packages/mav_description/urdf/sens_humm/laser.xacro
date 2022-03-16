@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+
+<robot name="hummingbird" xmlns:xacro="http://ros.org/wiki/xacro">
+  <!--LASER scanner-->
+
+
+  <material name="red">
+    <color rgba="1 0 0 1"/>
+  </material>
+   
+  <link name="laser_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0"/>
+      <inertia
+        ixx="0.0" ixy="0.0" ixz="0.0"
+        iyy="0.0" iyz="0.0"
+        izz="0.0"/>
+    </inertial>
+
+  </link>   
+
+	<joint name="laser_joint" type="fixed">
+		<parent link="base_link" />
+		<child link="laser_link" />
+		<origin xyz="0.0 0.0 0.02" rpy="0 0 1.57079"/>
+	</joint>
+
+
+
+
+
+
+  <gazebo reference="laser_link">
+    <sensor type="ray" name="laser">
+      <pose>0 0 0.1 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>40</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.57</min_angle>
+            <max_angle>1.57</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.2</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise parameters based on published spec for Hokuyo laser
+              achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+              stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+              reading. -->
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+        <topicName>/laser/scan</topicName>
+        <frameName>laser_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo> 
+
+</robot>
+
