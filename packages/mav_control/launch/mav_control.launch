@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<launch>
+
+    <!-- 
+        planner_call lo utilizzo per evitare output="screen" quando lancio questo file
+        per mezzo di mav_planner.launch
+    -->
+
+
+    <arg name="planner_call" default="false" />
+
+    <rosparam file="$(find mav_control)/conf/ppc_gains.yaml" command="load" />
+    <rosparam file="$(find mav_control)/conf/apc_gains.yaml" command="load" />
+    <rosparam file="$(find mav_control)/conf/mbe_gains.yaml" command="load" />
+    <rosparam file="$(find mav_control)/conf/uav_param.yaml" command="load" />
+
+    <group if="$(arg planner_call)">
+        <node name="mav_ctrl" pkg="mav_control" type="mav_control"/> 
+    </group>
+    <group unless="$(arg planner_call)">
+        <node name="mav_ctrl" pkg="mav_control" type="mav_control" output="screen"/> 
+    </group>
+
+</launch>
