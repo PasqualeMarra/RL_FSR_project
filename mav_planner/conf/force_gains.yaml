@@ -1,5 +1,0 @@
-# ATTRACTIVE FORCE
-Kp_p : 0.2 #0.2   
-Kd_p : 1.5 #1.5  
-# Repulsive
-K_obs:  0.1 #0.05 #0.001 
