@@ -10,6 +10,18 @@ technical project 3 for RL and FSR courses
 - **mav_description** : containing the description of the drone, modified from [mav_description](https://github.com/rl2021/mav_description.git)
 - **my_scenario** : used to launch the enviroment and spawn the drone. It contains also the force plugin requested by the project.
 
+## Dependecies
+
+- ROS Noetic
+- Gazebo
+- RViz
+- [aruco_ros](https://github.com/pal-robotics/aruco_ros)
+- [rotors_simulator](https://github.com/ethz-asl/rotors_simulator)
+- [mav_comm](https://github.com/ethz-asl/mav_comm)
+- Catkin
+- Eigen
+
+
 <details>
   <summary>How to install</summary>
 
