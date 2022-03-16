@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<launch>
+  <!-- overwriting these args -->
+  <arg name="debug" default="false" />
+  <arg name="gui" default="false" />
+  <arg name="pause" default="false" />
+  <arg name="world" default="$(find my_scenario)/worlds/my_scenario.world" />  <!--<arg name="world" default="worlds/empty_world.world" />-->
+  <arg name="robot"  default="full"/>          
+  <arg name="gzpose" default="-x 0.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0"/>
+  
+  <!-- posa drone -->
+  <arg name="x" default="0.0"/>  <!--<arg name="x" default="-6.0"/> -->  <!--frame Gazebo: NOU-->
+  <arg name="y" default="0.0"/>   <!--<arg name="y" default="8.0"/>  -->
+  <arg name="z" default="0.30"/>  <!--<arg name="z" default="0.25"/> -->
+  <arg name="R" default="0.0"/>   <!--<arg name="Y" default="0.0"/>  -->
+  <arg name="P" default="0.0"/>   <!--<arg name="Y" default="0.0"/>  -->
+  <arg name="Y" default="0.0"/>   <!--<arg name="Y" default="0.7853981634"/>  -->
+
+
+  <!--Adding my models and AR-marker-->
+  <env name="GAZEBO_MODEL_PATH" value="$(find my_scenario)/models:$(optenv GAZEBO_MODEL_PATH)" />
+
+  <!-- include gazebo_ros launcher for my_scenario-->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world)" />
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg pause)" />
+  </include>
+
+  <!-- include UAV+sensors launcher -->
+  <include file="$(find mav_description)/launch/sensorized_hummingbird.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg pause)" />
+    <arg name="x" value="$(arg x)"/>
+    <arg name="y" value="$(arg y)"/>
+    <arg name="z" value="$(arg z)"/>
+    <arg name="R" value="$(arg R)"/>
+    <arg name="P" value="$(arg P)"/>
+    <arg name="Y" value="$(arg Y)"/>
+  </include>
+
+  <!-- per trasforazione worldNED - base_linkNED
+  <node name="tf_broadcaster" pkg="my_scenario" type="tf_broadcaster"/>  
+	-->
+</launch>

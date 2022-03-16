@@ -1,0 +1,122 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+	  <scene>
+	    <shadows>0</shadows>
+    </scene>
+    <physics type="ode">
+      <gravity>0 0 -9.81</gravity>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>20</iters>
+          <sor>1.0</sor>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100.0</contact_max_correcting_vel>
+          <contact_surface_layer>0.0</contact_surface_layer>
+        </constraints>
+      </ode>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <max_step_size>0.001</max_step_size>
+    </physics>
+
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <!-- Blue floor -->
+    <include>
+      <uri>model://floor</uri>
+      <pose> 3 9 0.0 0.0 0.0 0.0</pose>
+    </include>
+
+    <!-- TEST
+    <include>
+      <uri>model://marker26_8cm_massless</uri>   
+      <pose>1.5 1 0.1 0.0 1.5707 1.5707</pose>
+    </include>
+  
+		<include>
+      <uri>model://empobst_1</uri>
+			<name>empobst_1</name>
+      <pose>2 2.5 0 0.0 0.0 -1.57</pose>
+    </include>
+    -->
+
+    <!-- Platforms -->
+		<include>
+      <uri>model://start_platform</uri>
+			<name>start_platform</name>
+      <pose> 0.0 0.0 0.0 0.0 0.0 0.0</pose>
+    </include>
+
+		<include>
+      <uri>model://end_platform</uri>
+			<name>end_platform</name>
+      <pose> 6.0 16.0 0.0 0.0 0.0 0.0</pose>
+    </include>
+
+    <!-- External walls -->
+
+		<include>
+      <uri>model://extwall</uri>
+			<name>extwall_left</name>
+      <pose>-4 9.0 0.0 0 0.0 -1.57</pose>
+    </include>
+
+    <include>
+      <uri>model://extwall</uri>
+			<name>extwall_right</name>
+      <pose>10 9.0 0.0 0 0.0 -1.57</pose>
+    </include>
+    
+    <include>
+      <uri>model://extwall_2</uri>
+			<name>extwall_front</name>
+      <pose>3 19.0 0.0 0 0.0 0.0</pose>
+    </include>
+
+    <!-- Solid obstacles -->
+
+    <include>
+      <uri>model://solobst_small</uri>
+			<name>solobs_s_1</name>
+      <pose>0.0 8.0 0.0 0 0.0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://solobst_big</uri>
+			<name>solobs_b_1</name>
+      <pose>0.0 2.0 0.0 0 0.0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://solobst_big</uri>
+			<name>solobs_b_2</name>
+      <pose>-1.0 12.0 0.0 0 0.0 0</pose>
+    </include>
+
+    <!--Empty obstacles with AR marker -->
+
+		<include>
+      <uri>model://empobst_1</uri>
+			<name>empobst_1</name>
+      <pose>0.0 6.0 0 0.0 0.0 -1.57</pose>
+    </include>
+
+		<include>
+      <uri>model://empobst_2</uri>
+			<name>empobst_2</name>
+      <pose>4.0 15.0 0 0.0 0.0 -1.57</pose>
+    </include>
+
+  </world>
+</sdf>
