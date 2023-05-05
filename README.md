@@ -1,6 +1,6 @@
 # RL_FSR_project
 
-technical project 3 for RL and FSR courses
+Control system for a quadrotor (technical project 3 for RL and FSR courses)
 
 ## Developed packages
 
